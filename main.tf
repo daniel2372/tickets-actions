@@ -22,24 +22,29 @@ resource "aws_vpc" "tactions" {
   }
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
+data "aws_ami" "amzlinux2" {
+  most_recent      = true
+  owners           = ["amazon"]
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["amzn2-ami-hvm-*-gp2"]
   }
-
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
-
-  owners = ["099720109477"] # Canonical
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
 }
 
 resource "aws_instance" "web" {
-  ami           = data.aws_ami.ubuntu.id
+  ami           = data.aws_ami.amzlinux2.id
   instance_type = "t2.micro"
 
   tags = {
