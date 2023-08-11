@@ -23,4 +23,6 @@ jobs:
          run: terraform validate
        - name: plan
          run: terraform plan
+       - name: provision
+         run: terraform apply
          
