@@ -20,6 +20,6 @@ jobs:
        steps:
         - name: Directory
           run: Get-Location
-        - name: Directory using bash
-          run: pwd 
+        - name: Directory using bash shell
+          run: pwd
           shell: bash 

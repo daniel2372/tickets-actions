@@ -2,7 +2,7 @@ terraform {
   required_version = "~> 1.0" # which means any version equal & above 0.14 like 0.15, 0.16 etc and < 1.xx
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "~> 3.0"
     }
   }
@@ -16,15 +16,15 @@ resource "aws_vpc" "tactions" {
 
 
   tags = {
-    Name = "myvpc"
-    Team = "Devops"
+    Name        = "myvpc"
+    Team        = "Devops"
     Environment = "prod"
   }
 }
 
 data "aws_ami" "amzlinux2" {
-  most_recent      = true
-  owners           = ["amazon"]
+  most_recent = true
+  owners      = ["amazon"]
   filter {
     name   = "name"
     values = ["amzn2-ami-hvm-*-gp2"]
@@ -51,4 +51,4 @@ resource "aws_instance" "web" {
     Name = "HelloWorld"
   }
 }
-  
+
