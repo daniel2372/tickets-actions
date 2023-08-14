@@ -11,41 +11,27 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 }
-resource "aws_vpc" "tactions" {
+/*resource "aws_vpc" "tactions" {
   cidr_block = "10.0.0.0/16"
-
-
   tags = {
     Name        = "myvpc"
-    Team        = "Devops"
-    Environment = "prod"
   }
-}
+}*/
 
-data "aws_ami" "amzlinux2" {
+data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = ["amazon"]
-  filter {
-    name   = "name"
-    values = ["amzn2-ami-hvm-*-gp2"]
-  }
-  filter {
-    name   = "root-device-type"
-    values = ["ebs"]
-  }
+  
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
+
+  owners = ["099720109477"] # Canonical
 }
 
 resource "aws_instance" "web" {
-  ami           = data.aws_ami.amzlinux2.id
-  instance_type = "t2.micro"
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t3.micro"
 
   tags = {
     Name = "HelloWorld"
